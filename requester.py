@@ -52,3 +52,4 @@ def Request(ipaddress):
 
 if __name__ == '__main__':
     multiprocessing.freeze_support()
+    print("Запустите Main.py")

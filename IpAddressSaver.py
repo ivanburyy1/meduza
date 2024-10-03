@@ -18,3 +18,5 @@ def GetIpAddress():
     except FileNotFoundError:
         print("no ip address file")
         return SetIpAddress()
+if __name__ == '__main__':
+    print("Запустите Main.py")

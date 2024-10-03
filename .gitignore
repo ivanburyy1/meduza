@@ -1,2 +1,3 @@
 ipaddress
 /__pycache__
+.env
