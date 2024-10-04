@@ -35,7 +35,7 @@ def Request(ipaddress):
     # -
     #return the value and save it into excel file
     dfpreset = pandas.DataFrame([(datetime.now().strftime("%H:%M"),temp,acid,salt,oxygen)],columns=["Время","Температура","Кислотность","Соль","Кислород"],dtype=str)
-    dfconcat = pandas.concat([df,dfpreset])
+    dfconcat = pandas.concat([df,dfpreset],ignore_index=True)
     tryagainstep = 0
     while(tryagainstep != 5):
         try:                    

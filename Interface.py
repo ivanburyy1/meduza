@@ -37,18 +37,19 @@ class MainWindow(QMainWindow):
         waiterthread = threading.Thread(target=self.waiterservice)
         waiterthread.daemon = True
         waiterthread.start()
-        botthread = threading.Thread(target=self.starttelebot)
+        queuegetdata = Queue()
+        queuegetdata.put(self.GetData)
+        botthread = threading.Thread(target=lambda: self.starttelebot(queuegetdata))
         botthread.daemon = True
         botthread.start()
         self.GetData()
 
-    def starttelebot(self):
-        self.bot = telegrambot.bot()
+    def starttelebot(self,queue):
+        self.bot = telegrambot.bot(queue)
         self.bot.run()
     def GetData(self):
         temp,acid,salt,oxygen = Request(IpAddressSaver.GetIpAddress())
         self.datalabel.setText(f"Температура: {temp}°C Кислотность: {acid} pH Соль: {salt} Кислород: {oxygen} Co2")
-        
         self.bot.sendmessage(f"Температура: {temp}°C \n Кислотность: {acid} pH \n Соль: {salt} \n Кислород: {oxygen} Co2")
         
 
