@@ -23,6 +23,7 @@ class MainWindow(QMainWindow):
         buttonget.setText("Получить данные")
         buttonget.clicked.connect(self.GetData)
         buttonUpdate = QPushButton(self)
+        buttonUpdate.clicked.connect(self.Updaterservice)
         buttonUpdate.setText("Обновить")
         buttonUpdate.setGeometry(0,30,100,40)
         buttonsetip = QPushButton(self)
@@ -65,7 +66,7 @@ class MainWindow(QMainWindow):
             if(timer == 0):
                 timer = 3600
                 self.GetData()
-    def Update():
+    def Updaterservice():
         import pyautogui
         import Updater
         pyautogui.alert("Обновление началось")
