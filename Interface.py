@@ -69,9 +69,15 @@ class MainWindow(QMainWindow):
     def Updaterservice(self):
         import pyautogui
         import Updater
-        pyautogui.alert("Обновление началось")
+        thread1 = threading.Thread(pyautogui.alert("Обновление началось"))
+        thread1.daemon = True
+        thread1.start()
+        time.sleep(1)
         Updater.Update()
-        pyautogui.alert("Перезапуск программы")
+        thread2 = threading.Thread(pyautogui.alert("Перезапуск программы"))
+        thread2.daemon = True
+        thread2.start()
+        time.sleep(1)
         import sys
         sys.exit()
 
