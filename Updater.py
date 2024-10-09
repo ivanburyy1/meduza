@@ -1,4 +1,5 @@
 def Update():
+    print("started updating")
     import wget
     import os
     import shutil
@@ -10,3 +11,4 @@ def Update():
     os.system(f"xcopy {os.path.dirname(os.path.realpath(__file__))}\meduza-main {os.path.dirname(os.path.realpath(__file__))} /E /H /C /I /Y")
     shutil.rmtree(f"{os.path.dirname(os.path.realpath(__file__))}\meduza-main")
     os.remove(f"{os.path.dirname(os.path.realpath(__file__))}\meduza-main.zip")
+    print("finished")
