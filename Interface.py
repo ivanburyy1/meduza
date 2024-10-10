@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
         buttonget.clicked.connect(self.GetData)
         buttonUpdate = QPushButton()
         buttonUpdate.clicked.connect(lambda: self.Updaterservice())
-        buttonUpdate.setText("Обновить")
+        buttonUpdate.setText("Обновить программу")
         buttonUpdate.setGeometry(0,30,100,40)
         buttonsetip = QPushButton()
         buttonsetip.setText("Изменить IP")
