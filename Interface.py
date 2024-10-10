@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QMainWindow,QLabel,QPushButton,QGridLayout,QWidget,QApplication
+from PyQt5.QtWidgets import QMainWindow,QLabel,QPushButton,QWidget,QApplication,QVBoxLayout,QHBoxLayout
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import Qt
 from requester import Request
 import threading
 import IpAddressSaver
@@ -14,25 +14,26 @@ if __name__ == '__main__':
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.setWindowTitle("Медуза")
-        self.datalabel = QLabel(self)
+        self.datalabel = QLabel()
         self.datalabel.setText("Температура: 0°C Кислотность: 0 pH Соль: 0 Кислород: 0 Co2")
-        self.setFixedSize(1920,1080)               
-        self.datalabel.setFixedSize(QSize(1150,100))
-        buttonget = QPushButton(self)
+        self.setGeometry(0,0,1900,1000)           
+        buttonget = QPushButton()
         buttonget.setText("Получить данные")
         buttonget.clicked.connect(self.GetData)
-        buttonUpdate = QPushButton(self)
+        buttonUpdate = QPushButton()
         buttonUpdate.clicked.connect(lambda: self.Updaterservice())
         buttonUpdate.setText("Обновить")
         buttonUpdate.setGeometry(0,30,100,40)
-        buttonsetip = QPushButton(self)
+        buttonsetip = QPushButton()
         buttonsetip.setText("Изменить IP")
         buttonsetip.clicked.connect(IpAddressSaver.SetIpAddress)
         self.datalabel.move(QApplication.desktop().screen().rect().center()- self.datalabel.rect().center())
+        #self.datalabel.setGeometry(385,490,1150,100)
         buttonget.setGeometry(850,560,120,40)
         self.datalabel.setFont(QFont("Arial",23))
-        self.timertext = QLabel(self)
+        self.timertext = QLabel()
         self.timertext.setGeometry(840,615,500,40)
         Queue1 = Queue()
         Queue2 = Queue()
@@ -46,6 +47,17 @@ class MainWindow(QMainWindow):
         botthread = threading.Thread(target=lambda: self.starttelebot(queuegetdata))
         botthread.daemon = True
         botthread.start()
+        layout1 = QHBoxLayout()
+        layout2 = QVBoxLayout()
+        layout1.addWidget(buttonsetip)
+        layout1.addWidget(buttonUpdate)
+        layout2.addLayout(layout1)
+        layout2.addWidget(self.datalabel)
+        layout2.addWidget(self.timertext)
+        layout2.addWidget(buttonget)       
+        widget = QWidget()
+        widget.setLayout(layout2)
+        self.setCentralWidget(widget)
         self.GetData()
 
     def starttelebot(self,queue):

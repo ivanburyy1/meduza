@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication
 def InterfaceStart():
     app = QApplication(sys.argv)
     window = Interface.MainWindow()
-    window.show()
+    window.showMaximized()
 
     sys.exit(app.exec())
 
