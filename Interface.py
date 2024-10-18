@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(0,0,1900,1000)           
         buttonget = QPushButton()
         buttonget.setText("Получить данные")
-        buttonget.clicked.connect(self.GetData)
+        buttonget.clicked.connect(self.getdatathread)
         buttonUpdate = QPushButton()
         buttonUpdate.clicked.connect(lambda: self.Updaterservice())
         buttonUpdate.setText("Обновить программу")
@@ -43,10 +43,11 @@ class MainWindow(QMainWindow):
         waiterthread.daemon = True
         waiterthread.start()
         queuegetdata = Queue()
-        queuegetdata.put(self.GetData)
+        queuegetdata.put(self.getdatathread)
         botthread = threading.Thread(target=lambda: self.starttelebot(queuegetdata))
         botthread.daemon = True
         botthread.start()
+        self.waitdatatext = QLabel()
         layout1 = QHBoxLayout()
         layout2 = QVBoxLayout()
         layout1.addWidget(buttonsetip)
@@ -54,19 +55,28 @@ class MainWindow(QMainWindow):
         layout2.addLayout(layout1)
         layout2.addWidget(self.datalabel)
         layout2.addWidget(self.timertext)
-        layout2.addWidget(buttonget)       
+        layout2.addWidget(buttonget)
+        layout2.addWidget(self.waitdatatext)       
         widget = QWidget()
         widget.setLayout(layout2)
         self.setCentralWidget(widget)
-        self.GetData()
+        self.getdatathread()
+
+    def getdatathread(self):
+        thread = threading.Thread(target=self.GetData,daemon=True)
+        thread.start()
 
     def starttelebot(self,queue):
         self.bot = telegrambot.bot(queue)
         self.bot.run()
+
     def GetData(self):
+        self.waitdatatext.setText("Получение данных")
+        self.waitdatatext.setFont(QFont("Arial",13))
         temp,acid,salt,oxygen = Request(IpAddressSaver.GetIpAddress())
         self.datalabel.setText(f"Температура: {temp}°C Кислотность: {acid} pH Соль: {salt} Кислород: {oxygen} Co2")
         self.bot.sendmessage(f"Температура: {temp}°C \n Кислотность: {acid} pH \n Соль: {salt} \n Кислород: {oxygen} Co2")
+        self.waitdatatext.setText("")
         
 
     def waiterservice(self):
