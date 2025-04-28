@@ -14,7 +14,7 @@ if __name__ == '__main__':
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.setWindowFlags(Qt.WindowStaysOnTopHint)
+        #self.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.setWindowTitle("Медуза")
         self.datalabel = QLabel()
         self.datalabel.setText("Температура: 0°C Кислотность: 0 pH Соль: 0 Кислород: 0 Co2")
