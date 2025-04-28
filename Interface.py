@@ -75,7 +75,10 @@ class MainWindow(QMainWindow):
         self.waitdatatext.setFont(QFont("Arial",13))
         temp,acid,salt,oxygen = Request(IpAddressSaver.GetIpAddress())
         self.datalabel.setText(f"Температура: {temp}°C Кислотность: {acid} pH Соль: {salt} Кислород: {oxygen} Co2")
-        self.bot.sendmessage(f"Температура: {temp}°C \n Кислотность: {acid} pH \n Соль: {salt} \n Кислород: {oxygen} Co2")
+        if(float(temp) > 11 or float(acid) > 8 or float(acid) < 5 or float(salt) > 44):
+            self.bot.sendmessage(f"КРИТИЧЕСКИЕ ДАННЫЕ!!!!!! Температура: {temp}°C \n Кислотность: {acid} pH \n Соль: {salt} \n Кислород: {oxygen} Co2")
+        else:
+            self.bot.sendmessage(f"Температура: {temp}°C \n Кислотность: {acid} pH \n Соль: {salt} \n Кислород: {oxygen} Co2")
         self.waitdatatext.setText("")
         
 

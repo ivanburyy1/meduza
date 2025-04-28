@@ -13,15 +13,40 @@ class bot:
         self.bot = telebot.TeleBot(os.environ.get("TELEGRAMBOTKEY"))
         @self.bot.message_handler()
         def getdatabutton(msg : telebot.types.Message):
-            if(msg.from_user.id == int(os.environ.get("USERTOMESSAGE")) and msg.text == "Запросить данные"):
-                print("test")
-                self.getdatafunc()
+            while True:
+                try:
+                    if(msg.from_user.id == int(os.environ.get("USERTOMESSAGE")) and msg.text == "Запросить данные"):
+                        print("test")
+                        self.getdatafunc()
+            
+                except:
+                    print("Telegram Not responding error")
+                    continue
+                else:
+                    break
         
     def sendmessage(self,message):
-        self.bot.send_message(chat_id=os.environ.get("USERTOMESSAGE"),text=message,reply_markup=self.keyboard)
+        while True:
+            try:
+                self.bot.send_message(chat_id=os.environ.get("USERTOMESSAGE"),text=message,reply_markup=self.keyboard)
+            except:
+                print("Telegram Not responding error")
+                continue
+            else:
+                break
     
     def run(self):
-        self.bot.polling()
+        while True:
+            try:
+                self.bot.polling()
+            except:
+                print("Telegram bot polling error")
+                continue
+            else:
+             # return to normal operation
+                break
+            
+        
         
 
 if __name__ == '__main__':
