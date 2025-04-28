@@ -8,10 +8,10 @@ def Request(ipaddress):
     exampledf = pandas.DataFrame(columns=["Время","Температура","Кислотность","Соль","Кислород"],dtype=str)
     # -
     # get all of the information from esp
-    temp = requests.post(f"http://{ipaddress}/temp/").text
-    acid = requests.post(f"http://{ipaddress}/ph/").text
-    salt = requests.post(f"http://{ipaddress}/salt/").text
-    oxygen = requests.post(f"http://{ipaddress}/oxygen/").text
+    temp = requests.post(f"http://{ipaddress}:19643/temp/").text
+    acid = requests.post(f"http://{ipaddress}:19643/ph/").text
+    salt = requests.post(f"http://{ipaddress}:19643/salt/").text
+    oxygen = requests.post(f"http://{ipaddress}:19643/oxygen/").text
     # -
     #check if file exist and create if doesnt
     tryagainstep = 0
