@@ -1,8 +1,9 @@
-PyQt5==5.15.9
-pyautogui==0.9.54
-python-dotenv==1.0.0
-telebot==0.0.5
-requests==2.31.0
-pandas==2.1.0
-xlsxwriter==3.1.2
-wget==3.2
+PyQt5
+pyautogui
+python-dotenv
+pyTelegramBotAPI
+requests
+pandas
+xlsxwriter
+wget
+openpyxl
