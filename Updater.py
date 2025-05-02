@@ -12,3 +12,6 @@ def Update():
     shutil.rmtree(f"{os.path.dirname(os.path.realpath(__file__))}\meduza-main")
     os.remove(f"{os.path.dirname(os.path.realpath(__file__))}\meduza-main.zip")
     print("finished")
+def CheckForUpdate():
+    import requests
+    import os
