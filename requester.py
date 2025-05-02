@@ -13,6 +13,11 @@ def Request(ipaddress):
     salt = requests.post(f"http://{ipaddress}:19643/salt/").text
     oxygen = requests.post(f"http://{ipaddress}:19643/oxygen/").text
     # -
+    # check if ExcelFiles folder exist and create if doesnt
+    if(not os.path.exists(os.path.dirname(os.path.realpath(__file__)) + "\\" + "ExcelFiles")):
+        os.mkdir(os.path.dirname(os.path.realpath(__file__)) + "\\" + "ExcelFiles")
+        print("created ExcelFiles folder")
+    # -
     #check if file exist and create if doesnt
     tryagainstep = 0
     while(tryagainstep != 5):
