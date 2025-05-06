@@ -13,6 +13,7 @@ if __name__ == '__main__':
 
 class MainWindow(QMainWindow):
     def __init__(self):
+        self.checkforupdates()
         super(MainWindow, self).__init__()
         #self.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.setWindowTitle("Медуза")
@@ -105,4 +106,11 @@ class MainWindow(QMainWindow):
         time.sleep(1)
         import sys
         sys.exit()
+    def checkforupdates(self):
+        import Updater
+        import pyautogui
+        if(Updater.CheckForUpdate()):
+            thread1 = threading.Thread(target=pyautogui.alert,args=("Обновление доступно",))
+            thread1.daemon = True
+            thread1.start()
 

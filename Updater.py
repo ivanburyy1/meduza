@@ -13,5 +13,13 @@ def Update():
     os.remove(f"{os.path.dirname(os.path.realpath(__file__))}\meduza-main.zip")
     print("finished")
 def CheckForUpdate():
-    import requests
+    import wget
     import os
+    wget.download("https://raw.githubusercontent.com/ivanburyy1/meduza/master/VERSION.txt","VERSIONCHECK.txt")
+    if(float(open("VERSIONCHECK.txt").read()) > float(open("VERSION.txt").read())):
+        os.remove("VERSIONCHECK.txt")
+        print("update available")
+        return True
+    else:
+        os.remove("VERSIONCHECK.txt")
+        return False
